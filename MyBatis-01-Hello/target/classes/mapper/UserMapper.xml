@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+
+    <!--插入操作 Create 使用#{属性名}来进行实体关系映射-->
+    <insert id="save" parameterType="User">
+        insert into user values (#{id}, #{username}, #{password})
+    </insert>
+
+    <!--查询操作 Retrieve-->
+    <select id="findAll" resultType="User">
+        select * from user
+    </select>
+
+    <select id="findById" resultType="User" parameterType="int">
+        select * from user where id = #{id}
+    </select>
+
+    <!--更新操作 Update-->
+    <update id="update" parameterType="User">
+        update user set username = #{username}, password = #{password} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+
+</mapper>
