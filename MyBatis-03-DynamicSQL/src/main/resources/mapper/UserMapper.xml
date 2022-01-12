@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxl.dao.UserMapper">
+    
+    <sql id="selectUser">select * from user</sql>
+
+    <!--返回类型和参数类型由于我们在SqlMapConfig.xml中配置了全限定名，所以简写-->
+    <select id="findByCondition" parameterType="User" resultType="User">
+        select * from user
+        <where>
+            <if test="id!=0">
+                and id=#{id}
+            </if>
+            <if test="username!=null">
+                and username=#{username}
+            </if>
+            <if test="password!=null">
+                and password=#{password}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="findByIds" parameterType="list" resultType="User">
+        <include refid="selectUser"/>
+        <where>
+            <foreach collection="list" open="id in(" close=")" item="x" separator=",">
+                #{x}
+            </foreach>
+        </where>
+    </select>
+
+</mapper>
